@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechHub - SignUp</title>
+    <link rel="stylesheet" href="static/styles.css"> <!-- Link to your existing CSS file -->
+<!--    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2802328539744129" crossorigin="anonymous"></script>-->
+</head>
+<!-- Google tag (gtag.js) -->
+<!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-7J6KC7ZGY6"></script>-->
+<!--<script>-->
+<!--  window.dataLayer = window.dataLayer || [];-->
+<!--  function gtag(){dataLayer.push(arguments);}-->
+<!--  gtag('js', new Date());-->
+
+<!--  gtag('config', 'G-7J6KC7ZGY6');-->
+<!--</script>-->
+<body>
+    <header>
+        <!-- Header Section -->
+        <div class="logo">
+            <h2>
+                <a href="/" style="text-decoration: none; color: white;">TechHub</a>
+            </h2>
+        </div>
+    </header>
+
+    <div class="signup-container">
+        <h2>Create Account</h2>
+        <form id="signup-form">
+            <input type="text" id="fullname" name="fullname" placeholder="Full Name" required>
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" placeholder="Date of Birth" required>
+            <input type="email" id="email" name="email" placeholder="Email" required />
+            <input type="password" id="password" name="password" placeholder="Password" required />
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required />
+            <button type="submit">Sign Up</button>
+        </form>
+        <div id="response-message" class="hidden"></div>
+        <div id="error-message"></div>
+
+        <form id="login-redirect" action="/login">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 TechHub. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact</a>
+                <a href="/terms">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script defer src="static/signup.js"></script>
+</body>
+</html>

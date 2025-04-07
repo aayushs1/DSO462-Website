@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechHub</title>
+    <link rel="stylesheet" href="static/styles.css">
+<!--    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2802328539744129" crossorigin="anonymous"></script>-->
+</head>
+<!-- Google tag (gtag.js) -->
+<!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-7J6KC7ZGY6"></script>-->
+<!--<script>-->
+<!--  window.dataLayer = window.dataLayer || [];-->
+<!--  function gtag(){dataLayer.push(arguments);}-->
+<!--  gtag('js', new Date());-->
+
+<!--  gtag('config', 'G-7J6KC7ZGY6');-->
+<!--</script>-->
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h2>
+                <a href="/" style="text-decoration: none; color: white;">TechHub</a>
+            </h2>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products..." id="searchInput">
+            <img src="static/assets/search.png" alt="search" id="searchBtn">
+        </div>
+        
+        <div class="header-links">
+            <div class="auth-links">
+                <a href="/login" class="login-btn">Login</a>
+                <a href="/signup" class="signup-btn">Sign Up</a>
+            </div>
+            <div class="cart">
+                <a href="cart.html">
+                    <img src="static/assets/cart-icon.png" alt="Cart" id="cartIcon">
+                    <span id="cartCount">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+        <h1 class="page-heading">Best Sellers</h1>
+        <div id="products" class="product-container"></div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 TechHub. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact</a>
+                <a href="/terms">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
