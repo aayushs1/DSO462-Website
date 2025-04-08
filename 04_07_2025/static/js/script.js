@@ -54,7 +54,65 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Download buttons
+    document.addEventListener('click', function(e) {
+        // Handle download button click
+        if (e.target.classList.contains('download-btn')) {
+            // Find the closest download options group
+            const downloadOptions = e.target.nextElementSibling;
+            if (downloadOptions) {
+                // Toggle display of format options
+                downloadOptions.classList.toggle('show');
+            }
+        }
+
+        // Handle format button click
+        if (e.target.classList.contains('format-btn')) {
+            const format = e.target.dataset.format;
+            const modelName = e.target.closest('.model-controls').querySelector('.model-info').textContent.split(' ')[0];
+
+            // Simulate download of the selected format
+            downloadModel(modelName, format);
+
+            // Visual feedback - add active class
+            document.querySelectorAll('.format-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            e.target.classList.add('active');
+        }
+    });
 });
+
+// Function to handle model download
+function downloadModel(modelName, format) {
+    // In a real implementation, this would trigger the actual download
+    // For now, we'll just log it
+    console.log(`Downloading ${modelName} in ${format.toUpperCase()} format`);
+
+    // You could implement an actual download here with:
+    // window.location.href = `/download/${modelName}?format=${format}`;
+
+    // Or using fetch:
+    /*
+    fetch(`/download/${modelName}?format=${format}`)
+        .then(response => response.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = `${modelName}.${format}`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => console.error('Error downloading file:', error));
+    */
+
+    // For this demo, we'll show an alert
+    alert(`Download started: ${modelName}.${format}`);
+}
 
 // Create a new chat
 function createNewChat() {
@@ -169,6 +227,62 @@ function addMessage(sender, content, botData = null) {
 
     // Add model preview if it's a bot message with a model
     if (sender === 'bot' && botData && botData.model_preview) {
-        let modelImage = 'model1.jpg';
-        if (botData.model_name.includes('lamp') || botData.model_name.includes('light')) {
-            modelImage = 'model2
+        let modelImage = botData.model_name.replace('.stl', '.png');
+        messageHtml += `
+            <div class="model-preview">
+                <img src="/static/img/${modelImage}" alt="3D Model Preview">
+                <div class="model-controls">
+                    <div class="model-info">${botData.model_name} (${botData.model_size})</div>
+                    <div class="model-actions">
+                        <button class="model-btn download-btn">Download</button>
+                        <div class="download-options">
+                            <button class="format-btn" data-format="png">PNG</button>
+                            <button class="format-btn" data-format="3mf">3MF</button>
+                            <button class="format-btn" data-format="stl">STL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    messageHtml += `</div>`;
+    messageElement.innerHTML = avatarHtml + messageHtml;
+    chatMessages.appendChild(messageElement);
+
+    // Scroll to the bottom
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+// Show typing indicator
+function showTypingIndicator() {
+    const typingElement = document.createElement('div');
+    typingElement.className = 'chat-message';
+    typingElement.id = 'typing-indicator';
+    typingElement.innerHTML = `
+        <div class="message-avatar bot-avatar">
+            <img src="/static/img/white_logo.png" alt="GoGoPrint Logo" width="24" height="24">
+        </div>
+        <div class="message-content">
+            <div class="message-header">
+                <div class="message-sender">GoGoPrint AI</div>
+                <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+            </div>
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    `;
+    chatMessages.appendChild(typingElement);
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+// Remove typing indicator
+function removeTypingIndicator() {
+    const typingElement = document.getElementById('typing-indicator');
+    if (typingElement) {
+        typingElement.remove();
+    }
+}
