@@ -490,7 +490,7 @@ body {
 }
 
 .bot-avatar {
-    background-color: white;
+    background-color: var(--accent-color);
     display: flex;
     align-items: center;
     justify-content: center;
