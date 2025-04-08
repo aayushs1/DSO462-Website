@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ chat.title }} - GoGoPrint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M240 60H60C49 60 40 69 40 80v140c0 11 9 20 20 20h30l-15 30 45-30h120c11 0 20-9 20-20V80c0-11-9-20-20-20z" stroke="#333" stroke-width="20" fill="white"/>
+                    <path d="M150 90l-50 30v60l50 30 50-30v-60l-50-30z" stroke="#333" stroke-width="10" fill="none"/>
+                    <path d="M150 90l50 30v60l-50 30" stroke="#333" stroke-width="10" fill="none"/>
+                    <path d="M150 90l-50 30v60" stroke="#333" stroke-width="10" fill="none"/>
+                    <path d="M150 90l50 30-50 30-50-30 50-30z" fill="#FFA42B"/>
+                    <path d="M100 120l50 30v60" stroke="#333" stroke-width="10" fill="none"/>
+                    <path d="M150 150l50-30" stroke="#333" stroke-width="10" fill="none"/>
+                    <path d="M100 120v60l50 30" fill="#CCCCCC" fill-opacity="0.6"/>
+                    <path d="M200 120v60l-50 30" fill="#AAAAAA" fill-opacity="0.4"/>
+                </svg>
+                <div class="logo-text">GoGoPrint</div>
+            </div>
+
+            <a href="{{ url_for('index') }}" class="new-chat-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                New Chat
+            </a>
+
+            <div class="history">
+                <h3 class="history-title">Recent Chats</h3>
+
+                {% for recent_chat in recent_chats %}
+                <a href="{{ url_for('view_chat', chat_id=recent_chat._id) }}" class="chat-history-item {% if recent_chat._id == chat._id %}active{% endif %}">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 12h8m-8 5h4m-8-10h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <p>{{ recent_chat.title }}</p>
+                </a>
+                {% endfor %}
+            </div>
+
+            <div class="user-section">
+                <div class="user-avatar">{{ user_name[0] }}</div>
+                <div class="user-info">
+                    <div class="user-name">{{ user_name }}</div>
+                    <div class="user-email">{{ user_email }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navigation -->
+            <div class="top-nav">
+                <div class="nav-title">{{ chat.title }}</div>
+                <div class="nav-actions">
+                    <button class="nav-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" fill="currentColor"/>
+                            <path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1c.4.5.6 1.1.4 1.7-.2.6-.7 1.1-1.3 1.3h-.1a1.7 1.7 0 00-1.2.8l-.1.1c-.3.5-.9.9-1.5.9s-1.2-.4-1.5-.9l-.1-.1c-.3-.5-.7-.8-1.2-.8h-.2c-.6-.2-1.1-.7-1.3-1.3-.2-.6 0-1.2.4-1.7l.1-.1c.3-.5.4-1 .3-1.6v-.4c-.1-.5-.4-1-.8-1.3l-.1-.1c-.5-.4-.7-1-.5-1.7.2-.6.7-1.1 1.3-1.3h.1c.5-.2.9-.5 1.2-1l.1-.1c.3-.5.9-.9 1.5-.9s1.2.4 1.5.9l.1.1c.3.5.7.8 1.2.8h.2c.6.2 1.1.7 1.3 1.3.2.6 0 1.2-.4 1.7l-.1.1c-.4.3-.7.8-.8 1.3v.4z" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                    </button>
+                    <button class="nav-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="chat-area" id="chat-area">
+                <div id="chat-messages" class="chat-messages">
+                    {% for message in messages %}
+                    {% if message.sender == 'user' %}
+                    <!-- User Message -->
+                    <div class="chat-message user-message">
+                        <div class="message-avatar user-message-avatar">
+                            {{ user_name[0] }}
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <div class="message-sender">You</div>
+                                <div class="message-time">{{ message.timestamp.strftime('%I:%M %p') }}</div>
+                            </div>
+                            <div class="message-text">
+                                <p>{{ message.content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- Bot Message -->
+                    <div class="chat-message">
+                        <div class="message-avatar bot-avatar">
+                            <svg width="24" height="24" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M240 60H60C49 60 40 69 40 80v140c0 11 9 20 20 20h30l-15 30 45-30h120c11 0 20-9 20-20V80c0-11-9-20-20-20z" stroke="#333" stroke-width="20" fill="white"/>
+                                <path d="M150 90l-50 30v60l50 30 50-30v-60l-50-30z" stroke="#333" stroke-width="10" fill="none"/>
+                                <path d="M150 90l50 30v60l-50 30" stroke
