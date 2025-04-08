@@ -21,11 +21,12 @@ body {
     line-height: 1.6;
 }
 
+/* Container - Full width for fullscreen */
 .container {
     display: flex;
     min-height: 100vh;
-    max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
 }
 
 /* Sidebar */
@@ -108,7 +109,8 @@ body {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: inherit;
+    color: white !important; /* Force white text */
+    background-color: rgba(255, 255, 255, 0.05); /* Slight highlight to show it's clickable */
 }
 
 .chat-history-item:hover {
@@ -123,6 +125,7 @@ body {
     margin-right: 8px;
     min-width: 16px;
     color: white;
+    pointer-events: none; /* Makes sure clicks go through to the parent element */
 }
 
 .chat-history-item p {
@@ -130,7 +133,8 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
-    color: #f0f0f0;
+    color: #f0f0f0 !important; /* Force visible text color */
+    pointer-events: none; /* Makes sure clicks go through to the parent element */
 }
 
 .user-section {
@@ -173,6 +177,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    width: calc(100% - 280px);
 }
 
 /* Top Navigation */
@@ -215,6 +220,7 @@ body {
     padding: 20px 0;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .welcome-container {
@@ -225,6 +231,8 @@ body {
     justify-content: center;
     text-align: center;
     padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .welcome-header {
@@ -249,8 +257,8 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 15px;
-    max-width: 900px;
-    width: 100%;
+    width: 90%;
+    max-width: 1200px;
     margin-top: 30px;
 }
 
@@ -267,7 +275,7 @@ body {
 
 .example-query:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .example-query h3 {
@@ -289,8 +297,8 @@ body {
     padding: 40px;
     border-radius: var(--border-radius);
     border: 1px solid #e0e0e0;
-    max-width: 900px;
-    width: 100%;
+    width: 90%;
+    max-width: 1200px;
     box-shadow: var(--shadow);
 }
 
@@ -375,7 +383,8 @@ body {
     display: flex;
     align-items: flex-end;
     gap: 10px;
-    max-width: 900px;
+    width: 90%;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -440,15 +449,18 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
     box-shadow: var(--shadow);
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .send-btn:disabled {
-    background-color: #ccc;
+    background-color: #cccccc;
     cursor: not-allowed;
 }
 
 .send-btn:hover:not(:disabled) {
     background-color: #E89526;
+    transform: scale(1.05);
 }
 
 /* Chat Messages */
@@ -456,14 +468,15 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0 20px;
+    width: 100%;
 }
 
 .chat-message {
     display: flex;
     margin-bottom: 24px;
     padding: 0 10px;
-    max-width: 900px;
-    width: 100%;
+    width: 90%;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -589,53 +602,6 @@ body {
     background-color: #f5f5f5;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .sidebar {
-        width: 240px;
-    }
-
-    .showcase-gallery {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        height: auto;
-        padding: 15px;
-    }
-
-    .logo {
-        margin-bottom: 15px;
-    }
-
-    .history {
-        display: none;
-    }
-
-    .user-section {
-        margin-top: 15px;
-    }
-
-    .example-queries {
-        grid-template-columns: 1fr;
-    }
-
-    .showcase-gallery {
-        grid-template-columns: 1fr;
-    }
-
-    .chat-message {
-        padding: 0 15px;
-    }
-}
-
 /* Animation for loading */
 .typing-indicator {
     display: flex;
@@ -678,5 +644,69 @@ body {
     100% {
         transform: scale(1);
         opacity: 0.5;
+    }
+}
+
+/* Make buttons more visibly clickable with subtle hover effect */
+button {
+    transition: transform 0.2s;
+}
+
+button:hover:not(:disabled) {
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 240px;
+    }
+
+    .main-content {
+        width: calc(100% - 240px);
+    }
+
+    .showcase-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .logo {
+        margin-bottom: 15px;
+    }
+
+    .history {
+        display: none;
+    }
+
+    .user-section {
+        margin-top: 15px;
+    }
+
+    .example-queries {
+        grid-template-columns: 1fr;
+    }
+
+    .showcase-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-message {
+        padding: 0 15px;
     }
 }

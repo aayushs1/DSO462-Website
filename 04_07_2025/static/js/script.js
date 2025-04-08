@@ -44,6 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Chat history items
+    document.querySelectorAll('.chat-history-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const chatId = item.dataset.chatId;
+            if (chatId) {
+                window.location.href = `/chat/${chatId}`;
+            }
+        });
+    });
 });
 
 // Create a new chat
@@ -140,17 +150,7 @@ function addMessage(sender, content, botData = null) {
     } else {
         avatarHtml = `
             <div class="message-avatar bot-avatar">
-                <svg width="24" height="24" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M240 60H60C49 60 40 69 40 80v140c0 11 9 20 20 20h30l-15 30 45-30h120c11 0 20-9 20-20V80c0-11-9-20-20-20z" stroke="#333" stroke-width="20" fill="white"/>
-                    <path d="M150 90l-50 30v60l50 30 50-30v-60l-50-30z" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M150 90l50 30v60l-50 30" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M150 90l-50 30v60" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M150 90l50 30-50 30-50-30 50-30z" fill="#FFA42B"/>
-                    <path d="M100 120l50 30v60" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M150 150l50-30" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M100 120v60l50 30" fill="#CCCCCC" fill-opacity="0.6"/>
-                    <path d="M200 120v60l-50 30" fill="#AAAAAA" fill-opacity="0.4"/>
-                </svg>
+                <img src="/static/img/white_logo.png" alt="GoGoPrint Logo" width="24" height="24">
             </div>
         `;
         senderName = 'GoGoPrint AI';
@@ -212,17 +212,7 @@ function showTypingIndicator() {
 
     typingElement.innerHTML = `
         <div class="message-avatar bot-avatar">
-            <svg width="24" height="24" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M240 60H60C49 60 40 69 40 80v140c0 11 9 20 20 20h30l-15 30 45-30h120c11 0 20-9 20-20V80c0-11-9-20-20-20z" stroke="#333" stroke-width="20" fill="white"/>
-                <path d="M150 90l-50 30v60l50 30 50-30v-60l-50-30z" stroke="#333" stroke-width="10" fill="none"/>
-                <path d="M150 90l50 30v60l-50 30" stroke="#333" stroke-width="10" fill="none"/>
-                <path d="M150 90l-50 30v60" stroke="#333" stroke-width="10" fill="none"/>
-                <path d="M150 90l50 30-50 30-50-30 50-30z" fill="#FFA42B"/>
-                <path d="M100 120l50 30v60" stroke="#333" stroke-width="10" fill="none"/>
-                <path d="M150 150l50-30" stroke="#333" stroke-width="10" fill="none"/>
-                <path d="M100 120v60l50 30" fill="#CCCCCC" fill-opacity="0.6"/>
-                <path d="M200 120v60l-50 30" fill="#AAAAAA" fill-opacity="0.4"/>
-            </svg>
+            <img src="/static/img/white_logo.png" alt="GoGoPrint Logo" width="24" height="24">
         </div>
         <div class="message-content">
             <div class="message-header">

@@ -12,17 +12,7 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
-                <svg width="40" height="40" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M240 60H60C49 60 40 69 40 80v140c0 11 9 20 20 20h30l-15 30 45-30h120c11 0 20-9 20-20V80c0-11-9-20-20-20z" stroke="#333" stroke-width="20" fill="white"/>
-                    <path d="M150 90l-50 30v60l50 30 50-30v-60l-50-30z" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M150 90l50 30v60l-50 30" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M150 90l-50 30v60" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M150 90l50 30-50 30-50-30 50-30z" fill="#FFA42B"/>
-                    <path d="M100 120l50 30v60" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M150 150l50-30" stroke="#333" stroke-width="10" fill="none"/>
-                    <path d="M100 120v60l50 30" fill="#CCCCCC" fill-opacity="0.6"/>
-                    <path d="M200 120v60l-50 30" fill="#AAAAAA" fill-opacity="0.4"/>
-                </svg>
+                <img src="{{ url_for('static', filename='img/white_logo.png') }}" alt="GoGoPrint Logo" width="40" height="40">
                 <div class="logo-text">GoGoPrint</div>
             </div>
 
@@ -99,7 +89,58 @@
                     <!-- Bot Message -->
                     <div class="chat-message">
                         <div class="message-avatar bot-avatar">
-                            <svg width="24" height="24" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M240 60H60C49 60 40 69 40 80v140c0 11 9 20 20 20h30l-15 30 45-30h120c11 0 20-9 20-20V80c0-11-9-20-20-20z" stroke="#333" stroke-width="20" fill="white"/>
-                                <path d="M150 90l-50 30v60l50 30 50-30v-60l-50-30z" stroke="#333" stroke-width="10" fill="none"/>
-                                <path d="M150 90l50 30v60l-50 30" stroke
+                            <img src="{{ url_for('static', filename='img/white_logo.png') }}" alt="GoGoPrint Logo" width="24" height="24">
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <div class="message-sender">GoGoPrint AI</div>
+                                <div class="message-time">{{ message.timestamp.strftime('%I:%M %p') }}</div>
+                            </div>
+                            <div class="message-text">
+                                <p>{{ message.content }}</p>
+                            </div>
+
+                            {% if message.model_preview %}
+                            <div class="model-preview">
+                                <img src="{{ url_for('static', filename='img/model1.jpg') }}" alt="3D Model Preview">
+                                <div class="model-controls">
+                                    <div class="model-info">
+                                        {{ message.model_name }} ({{ message.model_size }})
+                                    </div>
+                                    <div class="model-actions">
+                                        <button class="model-btn download-btn">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 15V3m0 12l-4-4m4 4l4-4m-9 4v4h10v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            Download
+                                        </button>
+                                        <button class="model-btn print-btn">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6 9V2h12v7M6 18H4v-9h16v9h-2m-3 4H9v-6h6v6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            Print
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Message Input Area -->
+            <div class="message-area">
+                <div class="message-container">
+                    <div class="message-input">
+                        <textarea id="message-input" placeholder="Describe the 3D model you need, and our AI will generate it for you..."></textarea>
+                        <div class="message-actions">
+                            <button class="action-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                            <button class="action-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w
