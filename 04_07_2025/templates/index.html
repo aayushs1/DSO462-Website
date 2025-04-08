@@ -1,190 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>GoGoPrint - 3D Model AI Assistant</title>
     <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/white_logo.png') }}">
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='img/white_logo.png') }}" alt="GoGoPrint Logo" width="40" height="40">
-                <div class="logo-text">GoGoPrint</div>
-            </div>
-
-            <button class="new-chat-btn" id="new-chat-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                New Chat
-            </button>
-
-            <div class="history">
-                <h3 class="history-title">Recent Chats</h3>
-
-                {% for chat in recent_chats %}
-                <a href="{{ url_for('view_chat', chat_id=chat._id) }}" class="chat-history-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 12h8m-8 5h4m-8-10h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                    <p>{{ chat.title }}</p>
-                </a>
-                {% endfor %}
-
-                <!-- Sample chats if no recent chats exist -->
-                {% if not recent_chats %}
-                <div class="chat-history-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 12h8m-8 5h4m-8-10h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                    <p>Minimalist desk organizer with compartments</p>
-                </div>
-
-                <div class="chat-history-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 12h8m-8 5h4m-8-10h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                    <p>Custom door knob with geometric pattern</p>
-                </div>
-
-                <div class="chat-history-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 12h8m-8 5h4m-8-10h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                    <p>Decorative wall planter with drainage</p>
-                </div>
-                {% endif %}
-            </div>
-
-            <div class="user-section">
-                <div class="user-avatar">{{ user_name[0] }}</div>
-                <div class="user-info">
-                    <div class="user-name">{{ user_name }}</div>
-                    <div class="user-email">{{ user_email }}</div>
-                </div>
-            </div>
+<div class="container">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/white_logo.png') }}" alt="GoGoPrint Logo" width="40" height="40">
+            <div class="logo-text">GoGoPrint</div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Top Navigation -->
-            <div class="top-nav">
-                <div class="nav-title">3D Model AI Assistant</div>
-                <div class="nav-actions">
-                    <button class="nav-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" fill="currentColor"/>
-                            <path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1c.4.5.6 1.1.4 1.7-.2.6-.7 1.1-1.3 1.3h-.1a1.7 1.7 0 00-1.2.8l-.1.1c-.3.5-.9.9-1.5.9s-1.2-.4-1.5-.9l-.1-.1c-.3-.5-.7-.8-1.2-.8h-.2c-.6-.2-1.1-.7-1.3-1.3-.2-.6 0-1.2.4-1.7l.1-.1c.3-.5.4-1 .3-1.6v-.4c-.1-.5-.4-1-.8-1.3l-.1-.1c-.5-.4-.7-1-.5-1.7.2-.6.7-1.1 1.3-1.3h.1c.5-.2.9-.5 1.2-1l.1-.1c.3-.5.9-.9 1.5-.9s1.2.4 1.5.9l.1.1c.3.5.7.8 1.2.8h.2c.6.2 1.1.7 1.3 1.3.2.6 0 1.2-.4 1.7l-.1.1c-.4.3-.7.8-.8 1.3v.4z" stroke="currentColor" stroke-width="1.5"/>
-                        </svg>
-                    </button>
-                    <button class="nav-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z" fill="currentColor"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+        <button class="new-chat-btn" id="new-chat-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            New Chat
+        </button>
 
-            <!-- Chat Area -->
-            <div class="chat-area" id="chat-area">
-                <!-- Welcome Message -->
-                <div class="welcome-container" id="welcome-container">
-                    <div class="welcome-header">
-                        <h1>3D Printing & Modeling, Simplified</h1>
-                        <p>Describe the 3D model you need, and our AI will generate it for you. You can then download the model file or send it directly to print.</p>
-                    </div>
+        <div class="history">
+            <h3 class="history-title">Recent Chats</h3>
+            {% for chat in recent_chats %}
+            <a href="{{ url_for('view_chat', chat_id=chat._id) }}" class="chat-history-item">
+                <img src="{{ url_for('static', filename='img/' ~ chat.image) }}" alt="{{ chat.title }}" width="24" height="24" style="border-radius: 4px; margin-right: 10px;">
+                <p>{{ chat.title }}</p>
+            </a>
+            {% endfor %}
+        </div>
 
-                    <div class="example-queries">
-                        <div class="example-query" data-prompt="Create a minimalist coffee table with storage compartments suitable for a small apartment">
-                            <h3>Furniture Design</h3>
-                            <p>Create a minimalist coffee table with storage compartments suitable for a small apartment</p>
-                        </div>
-
-                        <div class="example-query" data-prompt="Design an ergonomic smartphone stand that includes wireless charging capabilities">
-                            <h3>Tech Accessories</h3>
-                            <p>Design an ergonomic smartphone stand that includes wireless charging capabilities</p>
-                        </div>
-
-                        <div class="example-query" data-prompt="Generate a modern wall-mounted planter with a honeycomb pattern for succulents">
-                            <h3>Home Decor</h3>
-                            <p>Generate a modern wall-mounted planter with a honeycomb pattern for succulents</p>
-                        </div>
-
-                        <div class="example-query" data-prompt="I need a replacement knob for my kitchen cabinet with a diameter of 30mm and height of 25mm">
-                            <h3>Custom Parts</h3>
-                            <p>I need a replacement knob for my kitchen cabinet with a diameter of 30mm and height of 25mm</p>
-                        </div>
-                    </div>
-
-                    <div class="model-showcase">
-                        <div class="showcase-header">
-                            <h2>Recently Created Models</h2>
-                            <p>Check out some examples of what our AI can generate</p>
-                        </div>
-
-                        <div class="showcase-gallery">
-                            <div class="gallery-item">
-                                <img src="{{ url_for('static', filename='img/model1.jpg') }}" alt="3D Model Example">
-                                <div class="gallery-overlay">
-                                    <h4>Ergonomic Desk Organizer</h4>
-                                    <p>Modular design with adjustable compartments</p>
-                                </div>
-                            </div>
-
-                            <div class="gallery-item">
-                                <img src="{{ url_for('static', filename='img/model2.jpg') }}" alt="3D Model Example">
-                                <div class="gallery-overlay">
-                                    <h4>Modern Lamp Shade</h4>
-                                    <p>Geometric pattern with customizable light diffusion</p>
-                                </div>
-                            </div>
-
-                            <div class="gallery-item">
-                                <img src="{{ url_for('static', filename='img/model3.jpg') }}" alt="3D Model Example">
-                                <div class="gallery-overlay">
-                                    <h4>Smartphone Stand</h4>
-                                    <p>Adjustable viewing angles with cable management</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chat messages will be added here -->
-                <div id="chat-messages" class="chat-messages"></div>
-            </div>
-
-            <!-- Message Input Area -->
-            <div class="message-area">
-                <div class="message-container">
-                    <div class="message-input">
-                        <textarea id="message-input" placeholder="Describe the 3D model you need, and our AI will generate it for you..."></textarea>
-                        <div class="message-actions">
-                            <button class="action-btn">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                                </svg>
-                            </button>
-                            <button class="action-btn">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.5 8a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM8.5 13a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15.5 18a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" fill="currentColor"/>
-                                    <path d="M17.268 8.732l-9.536 4.536m9.536 4.464l-9.536-4.464" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <button class="send-btn" id="send-btn" disabled>
-                        <span style="font-size: 20px; font-weight: bold;">→</span>
-                    </button>
-                </div>
+        <div class="user-section">
+            <div class="user-avatar">{{ user_name[0] }}</div>
+            <div class="user-info">
+                <div class="user-name">{{ user_name }}</div>
+                <div class="user-email">{{ user_email }}</div>
             </div>
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <div class="main-content">
+        <div class="top-nav">
+            <div class="nav-title">3D Model AI Assistant</div>
+        </div>
+
+        <div class="chat-area" id="chat-area">
+            <div class="welcome-container" id="welcome-container">
+                <div class="welcome-header">
+                    <h1>3D Printing & Modeling, Simplified</h1>
+                    <p>Hi, {{ user_name }}! Describe the 3D model you need, and our AI will generate it for you.</p>
+                </div>
+            </div>
+            <div id="chat-messages" class="chat-messages"></div>
+        </div>
+
+        <div class="message-area">
+            <div class="message-container">
+                <div class="message-input">
+                    <textarea id="message-input" placeholder="Describe the 3D model you need..."></textarea>
+                    <div class="message-actions">
+                        <button class="action-btn">+</button>
+                    </div>
+                </div>
+                <button class="send-btn" id="send-btn" disabled>→</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

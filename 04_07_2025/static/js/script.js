@@ -145,7 +145,7 @@ function addMessage(sender, content, botData = null) {
     let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     if (sender === 'user') {
-        avatarHtml = `<div class="message-avatar user-message-avatar">U</div>`;
+        avatarHtml = `<div class="message-avatar user-message-avatar">P</div>`;
         senderName = 'You';
     } else {
         avatarHtml = `
@@ -169,72 +169,6 @@ function addMessage(sender, content, botData = null) {
 
     // Add model preview if it's a bot message with a model
     if (sender === 'bot' && botData && botData.model_preview) {
-        messageHtml += `
-            <div class="model-preview">
-                <img src="/static/img/model1.jpg" alt="3D Model Preview">
-                <div class="model-controls">
-                    <div class="model-info">
-                        ${botData.model_name} (${botData.model_size})
-                    </div>
-                    <div class="model-actions">
-                        <button class="model-btn download-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 15V3m0 12l-4-4m4 4l4-4m-9 4v4h10v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            Download
-                        </button>
-                        <button class="model-btn print-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6 9V2h12v7M6 18H4v-9h16v9h-2m-3 4H9v-6h6v6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            Print
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    messageHtml += `</div>`;
-
-    messageElement.innerHTML = avatarHtml + messageHtml;
-    chatMessages.appendChild(messageElement);
-
-    // Scroll to bottom
-    chatArea.scrollTop = chatArea.scrollHeight;
-}
-
-// Show typing indicator
-function showTypingIndicator() {
-    const typingElement = document.createElement('div');
-    typingElement.className = 'chat-message';
-    typingElement.id = 'typing-indicator';
-
-    typingElement.innerHTML = `
-        <div class="message-avatar bot-avatar">
-            <img src="/static/img/white_logo.png" alt="GoGoPrint Logo" width="24" height="24">
-        </div>
-        <div class="message-content">
-            <div class="message-header">
-                <div class="message-sender">GoGoPrint AI</div>
-                <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-            </div>
-            <div class="typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    `;
-
-    chatMessages.appendChild(typingElement);
-    chatArea.scrollTop = chatArea.scrollHeight;
-}
-
-// Remove typing indicator
-function removeTypingIndicator() {
-    const typingElement = document.getElementById('typing-indicator');
-    if (typingElement) {
-        typingElement.remove();
-    }
-}
+        let modelImage = 'model1.jpg';
+        if (botData.model_name.includes('lamp') || botData.model_name.includes('light')) {
+            modelImage = 'model2
